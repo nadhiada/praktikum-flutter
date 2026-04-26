@@ -193,22 +193,7 @@ Aplikasi menggunakan:
 # Hasil Tampilan Aplikasi
 
 Berikut merupakan hasil tampilan aplikasi:
-
-## Input Celsius
-
-*(Tambahkan screenshot di sini)*
-
-## Input Fahrenheit
-
-*(Tambahkan screenshot di sini)*
-
-## Input Kelvin
-
-*(Tambahkan screenshot di sini)*
-
-## Input Reamur
-
-*(Tambahkan screenshot di sini)*
+<img width="464" height="862" alt="image" src="https://github.com/user-attachments/assets/a08bf9d0-8a1b-4ac0-a837-18a38869e0fa" />
 
 ---
 
