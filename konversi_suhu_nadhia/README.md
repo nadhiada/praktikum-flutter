@@ -1,221 +1,435 @@
-# Laporan Praktikum Konversi Suhu
+# Laporan Praktikum Flutter
 
-Aplikasi ini merupakan aplikasi Flutter sederhana yang digunakan untuk mengonversi suhu dari satu satuan ke satuan lainnya, yaitu **Celsius, Fahrenheit, Kelvin, dan Reamur**.
+# Aplikasi Konversi Suhu + Firebase Authentication
 
-Pada praktikum ini, aplikasi tidak hanya dibuat agar berjalan, tetapi juga dilakukan perbaikan struktur kode dengan menerapkan **State Management Provider**. Tujuannya agar kode lebih terorganisir, mudah dipahami, serta lebih mudah dikembangkan di kemudian hari.
+Aplikasi ini merupakan aplikasi Flutter sederhana yang digunakan untuk melakukan konversi suhu antara beberapa satuan, yaitu Celsius, Fahrenheit, Kelvin, dan Reamur.
 
----
-
-# Tujuan Praktikum
-
-* Membuat aplikasi konversi suhu menggunakan Flutter
-* Memahami konsep dasar state management
-* Menerapkan Provider dalam pengelolaan state
-* Memisahkan antara logika program dan tampilan (UI)
+Pada pengembangan kali ini, aplikasi tidak hanya dibuat untuk melakukan konversi suhu, tetapi juga ditambahkan fitur **Login Authentication menggunakan Firebase** serta menerapkan **Provider State Management** agar struktur kode lebih rapi dan mudah dikembangkan.
 
 ---
 
-# Fitur 
+# 🚀 Fitur Aplikasi
 
+Beberapa fitur yang terdapat pada aplikasi ini:
+
+* Login menggunakan Firebase Authentication
+* Logout dari aplikasi
 * Input suhu menggunakan `TextField`
-* Pemilihan satuan input menggunakan `DropdownButtonFormField`
-* Konversi suhu ke semua satuan sekaligus (Celsius, Fahrenheit, Kelvin, Reamur)
-* Validasi sederhana (tidak memproses jika input kosong)
-* Tampilan hasil menggunakan `Card` agar lebih rapi dan mudah dibaca
-* Menggunakan **Provider** sebagai state management
+* Pemilihan satuan suhu menggunakan `DropdownButtonFormField`
+* Konversi suhu ke:
+
+  * Celsius
+  * Fahrenheit
+  * Kelvin
+  * Reamur
+* Tampilan hasil menggunakan `Card`
+* Menggunakan `Provider` sebagai state management
+* Menggunakan Material Design 3
+* Tampilan UI modern dan sederhana
 
 ---
 
-# Struktur Proyek (Provider)
+# 🧠 Teknologi yang Digunakan
 
-Struktur aplikasi dibuat sederhana dengan pemisahan antara tampilan dan logika:
+Project ini menggunakan beberapa package dan teknologi berikut:
 
-```
+| Teknologi     | Fungsi                      |
+| ------------- | --------------------------- |
+| Flutter       | Framework utama aplikasi    |
+| Provider      | State management            |
+| Firebase Auth | Sistem login authentication |
+| Firebase Core | Koneksi Flutter ke Firebase |
+| Material 3    | Tampilan UI modern Flutter  |
+
+---
+
+# 📂 Struktur Project
+
+```text
 lib/
 ├── main.dart
 ├── home_page.dart
-└── temperature_provider.dart
+├── login_page.dart
+├── auth_service.dart
+├── temperature_provider.dart
+└── firebase_options.dart
 ```
 
 ---
 
-# Penjelasan Struktur
+# 📄 Penjelasan Tiap File
 
-## main.dart
+## 1. `main.dart`
 
-File ini merupakan **entry point** dari aplikasi.
+File utama aplikasi atau entry point Flutter.
 
-Fungsinya:
+Fungsi:
 
 * Menjalankan aplikasi Flutter
+* Inisialisasi Firebase
 * Mendaftarkan Provider menggunakan `ChangeNotifierProvider`
 * Mengatur tema aplikasi
+* Menentukan halaman awal aplikasi (`LoginPage`)
 
-Dengan adanya `ChangeNotifierProvider`, data dari provider dapat diakses oleh seluruh widget di dalam aplikasi.
+Pada file ini juga digunakan:
+
+```dart
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+```
+
+yang berfungsi untuk menghubungkan Flutter dengan Firebase.
 
 ---
 
-## temperature_provider.dart
+## 2. `login_page.dart`
 
-File ini berisi **logika utama aplikasi (business logic)**.
+Berisi tampilan halaman login.
 
-Tanggung jawabnya:
+Fungsi:
 
-* Menyimpan nilai suhu (state)
+* Input email
+* Input password
+* Tombol login
+* Validasi login Firebase
+* Navigasi ke `HomePage` setelah login berhasil
+
+User melakukan login menggunakan akun yang telah dibuat pada Firebase Authentication.
+
+---
+
+## 3. `auth_service.dart`
+
+Berisi seluruh proses authentication Firebase.
+
+Fungsi:
+
+* Login menggunakan:
+
+```dart
+signInWithEmailAndPassword()
+```
+
+* Logout menggunakan:
+
+```dart
+signOut()
+```
+
+File ini dibuat terpisah agar logic authentication tidak bercampur dengan UI.
+
+---
+
+## 4. `temperature_provider.dart`
+
+Berisi seluruh state dan logic konversi suhu.
+
+Fungsi:
+
+* Menyimpan data suhu
 * Menyimpan satuan input
-* Melakukan perhitungan konversi suhu
-* Memberi notifikasi ke UI menggunakan `notifyListeners()`
+* Mengelola proses konversi
+* Mengirim perubahan data ke UI menggunakan:
 
-Semua proses perhitungan dilakukan di file ini, sehingga UI tidak perlu menangani logika.
+```dart
+notifyListeners()
+```
 
----
-
-## home_page.dart
-
-File ini berisi **tampilan utama aplikasi (UI)**.
-
-Fungsinya:
-
-* Menampilkan form input suhu
-* Menampilkan dropdown pilihan satuan
-* Menyediakan tombol konversi
-* Mengirim data ke provider
-* Menampilkan hasil konversi dari provider
-
-File ini tidak melakukan perhitungan, hanya berfungsi sebagai penghubung antara user dan provider.
+Provider digunakan agar tampilan dapat otomatis berubah tanpa perlu menggunakan `setState`.
 
 ---
 
-# Alur Kerja Aplikasi
+## 5. `home_page.dart`
 
-1. User memasukkan nilai suhu pada `TextField`
-2. User memilih satuan suhu dari dropdown
-3. User menekan tombol **Konversi**
+Berisi tampilan utama aplikasi konversi suhu.
+
+Fungsi:
+
+* Input nilai suhu
+* Dropdown pilihan satuan
+* Tombol konversi
+* Menampilkan hasil konversi
+* Tombol logout
+
+Pada file ini tidak terdapat perhitungan suhu karena seluruh logic dipindahkan ke Provider.
+
+---
+
+## 6. `firebase_options.dart`
+
+File otomatis hasil generate dari FlutterFire CLI.
+
+Fungsi:
+
+* Menyimpan konfigurasi Firebase untuk:
+
+  * Android
+  * Web
+
+File ini digunakan saat proses:
+
+```dart
+Firebase.initializeApp()
+```
+
+---
+
+# 🔁 Alur Kerja Aplikasi
+
+## Proses Login
+
+1. User membuka aplikasi
+2. Halaman login muncul
+3. User memasukkan email dan password
+4. Data dikirim ke Firebase Authentication
+5. Jika berhasil:
+
+   * masuk ke halaman konversi suhu
+6. Jika gagal:
+
+   * muncul pesan login gagal
+
+---
+
+## Proses Konversi Suhu
+
+1. User memasukkan nilai suhu
+2. User memilih satuan suhu
+3. User menekan tombol konversi
 4. Data dikirim ke `TemperatureProvider`
-5. Provider melakukan perhitungan konversi
+5. Provider melakukan perhitungan
 6. `notifyListeners()` dipanggil
-7. UI otomatis diperbarui dengan hasil terbaru
+7. UI otomatis diperbarui
 
 ---
 
-# Logika Konversi
+# 🧮 Logika Konversi Suhu
 
-Semua perhitungan menggunakan **Celsius sebagai acuan utama**.
+Semua proses konversi menggunakan Celsius sebagai titik acuan utama.
 
-## Konversi ke Celsius:
+## Konversi ke Celsius
 
-* Fahrenheit → `(F - 32) × 5 / 9`
+* Fahrenheit → `(F - 32) * 5 / 9`
 * Kelvin → `K - 273.15`
-* Reamur → `R × 5 / 4`
+* Reamur → `R * 5 / 4`
 
-## Konversi dari Celsius:
+## Konversi dari Celsius
 
-* Fahrenheit → `(C × 9 / 5) + 32`
+* Fahrenheit → `(C * 9 / 5) + 32`
 * Kelvin → `C + 273.15`
-* Reamur → `C × 4 / 5`
+* Reamur → `C * 4 / 5`
 
-Dengan pendekatan ini, proses perhitungan menjadi lebih sederhana dan terstruktur.
-
----
-
-# Alasan Menggunakan Provider
-
-Penggunaan Provider pada aplikasi ini didasarkan pada beberapa pertimbangan:
-
-* Memisahkan antara logika dan tampilan
-* Menghindari penggunaan `setState` secara berlebihan
-* Membuat kode lebih rapi dan mudah dipahami
-* Memudahkan pengembangan fitur di masa depan
+Dengan metode ini, proses perhitungan menjadi lebih sederhana dan mudah dikelola.
 
 ---
 
-# Perbandingan State Management
+# ⚖️ Alasan Menggunakan Provider
+
+Provider dipilih karena:
+
+* Lebih sederhana dibanding BLoC
+* Mudah dipahami untuk project kecil
+* Memisahkan logic dan UI
+* Mengurangi penggunaan `setState`
+* Membuat kode lebih rapi
+* Mudah dikembangkan kembali
+
+---
+
+# 🔄 Perbandingan State Management
 
 ## setState vs Provider
 
-* `setState`: mudah digunakan, tetapi logic dan UI tercampur
-* Provider: lebih terstruktur karena memisahkan logic dan UI
+### setState
+
+* Mudah digunakan
+* Cocok untuk aplikasi kecil
+* Logic dan UI sering bercampur
+
+### Provider
+
+* Lebih terstruktur
+* Logic dipisah dari UI
+* Rebuild widget lebih terkontrol
+* Lebih scalable
+
+---
 
 ## Provider vs BLoC
 
-* Provider: sederhana dan cocok untuk aplikasi kecil
-* BLoC: lebih kompleks dan cocok untuk aplikasi besar
+### Provider
 
-Pada kasus ini, Provider dipilih karena lebih sesuai dengan kebutuhan aplikasi yang masih sederhana.
+* Lebih sederhana
+* Mudah dipelajari
+* Cocok untuk project sederhana
 
----
+### BLoC
 
-# Langkah Implementasi
+* Lebih kompleks
+* Cocok untuk project besar
+* Struktur lebih ketat
 
-1. Membuat struktur awal project Flutter
-
-2. Membuat file `home_page.dart` sebagai tampilan utama aplikasi (UI), yang berisi:
-
-   * Input suhu menggunakan TextField
-   * Dropdown untuk memilih satuan
-   * Tombol konversi
-   * Tampilan hasil konversi
-
-3. Menambahkan dependency `provider` pada `pubspec.yaml`
-
-4. Membuat file `temperature_provider.dart` untuk menangani:
-
-   * Penyimpanan state (nilai suhu)
-   * Logika perhitungan konversi
-   * Pengelolaan perubahan data
-
-5. Memindahkan seluruh logika konversi dari UI ke dalam provider
-
-6. Mendaftarkan provider di `main.dart` menggunakan `ChangeNotifierProvider`
-
-7. Menghubungkan `home_page.dart` dengan provider menggunakan:
-
-   * `Provider.of<TemperatureProvider>(context)`
-   * Memanggil fungsi konversi dari provider
-
-8. Menampilkan hasil konversi dari provider ke dalam UI
-
-9. Menggunakan `notifyListeners()` agar UI otomatis update ketika data berubah
+Pada project ini Provider dipilih karena kebutuhan aplikasi masih sederhana.
 
 ---
 
-# Tampilan Aplikasi
+# 🔥 Firebase Authentication
 
-Aplikasi menggunakan:
+Firebase Authentication digunakan sebagai sistem login aplikasi.
 
-* Material Design 3 (`useMaterial3: true`)
-* ColorScheme untuk pengaturan warna
-* Warna utama pink
-* Card untuk menampilkan hasil konversi
+Metode login yang digunakan:
+
+```text
+Email & Password Authentication
+```
+
+Firebase dipilih karena:
+
+* Mudah diintegrasikan dengan Flutter
+* Aman
+* Cepat digunakan
+* Mendukung banyak platform
 
 ---
 
-# Hasil Tampilan Aplikasi
+# 🛠️ Langkah Implementasi
 
-Berikut merupakan hasil tampilan aplikasi:
-<img width="464" height="862" alt="image" src="https://github.com/user-attachments/assets/a08bf9d0-8a1b-4ac0-a837-18a38869e0fa" />
+## 1. Membuat project Flutter
+
+```bash
+flutter create konversi_suhu_nadhia
+```
 
 ---
 
-# Cara Menjalankan Aplikasi
+## 2. Menambahkan dependency
+
+```bash
+flutter pub add provider
+flutter pub add firebase_core
+flutter pub add firebase_auth
+```
+
+---
+
+## 3. Membuat Firebase Project
+
+* Membuat project di Firebase Console
+* Menambahkan Android App
+* Menambahkan Web App
+
+---
+
+## 4. Menghubungkan Firebase ke Flutter
+
+Menggunakan FlutterFire CLI:
+
+```bash
+dart pub global activate flutterfire_cli
+```
+
+```bash
+dart pub global run flutterfire_cli:flutterfire configure
+```
+
+---
+
+## 5. Membuat halaman Login
+
+Membuat:
+
+* `login_page.dart`
+* `auth_service.dart`
+
+---
+
+## 6. Membuat Provider
+
+Membuat:
+
+* `temperature_provider.dart`
+
+---
+
+## 7. Menghubungkan UI dengan Provider
+
+Menggunakan:
+
+```dart
+ChangeNotifierProvider
+```
+
+dan
+
+```dart
+Provider.of<TemperatureProvider>(context)
+```
+
+---
+
+## 8. Menambahkan Logout
+
+Logout dilakukan menggunakan:
+
+```dart
+FirebaseAuth.instance.signOut()
+```
+
+---
+
+# ▶️ Cara Menjalankan Aplikasi
+
+## Install dependency
 
 ```bash
 flutter pub get
+```
+
+---
+
+## Menjalankan aplikasi Web
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+## Menjalankan aplikasi Android
+
+```bash
 flutter run
 ```
 
 ---
 
-# Kesimpulan
+# 📸 Screenshot Aplikasi
 
-Dari praktikum ini dapat disimpulkan bahwa penggunaan Provider membantu meningkatkan kualitas struktur kode aplikasi.
+## Halaman Login
 
-Dengan memisahkan antara logika dan tampilan:
+### Login Gagal
+<img src="https://github.com/user-attachments/assets/9df43b9d-8af1-4984-bdfb-82a7b5aa0f8e" width="220"/>
 
-* kode menjadi lebih rapi
-* lebih mudah dipahami
-* lebih mudah dikembangkan
+### Login Berhasil
+<img src="https://github.com/user-attachments/assets/1680d723-e7df-427e-972c-613308c8c08c" width="220"/>
 
-Untuk aplikasi sederhana seperti konversi suhu, Provider sudah menjadi solusi yang tepat tanpa perlu menggunakan arsitektur yang lebih kompleks seperti BLoC.
+<img src="https://github.com/user-attachments/assets/baeecfc0-6404-4cd5-9805-c00b3bd04490" width="220"/>
 
 ---
+
+## Halaman Konversi Suhu
+
+<img src="https://github.com/user-attachments/assets/2f41a57c-1e92-4c09-8396-0e42b4c407b9" width="220"/>
+
+---
+
+## Hasil Konversi
+
+<img src="https://github.com/user-attachments/assets/b736aa02-ac54-4841-8504-10dacedcbf5c" width="220"/>
+
+# 🧩 Kesimpulan
+
+Dari praktikum ini dapat disimpulkan bahwa penggunaan Provider membantu membuat struktur aplikasi menjadi lebih rapi karena logic dan tampilan dipisahkan.
+
+Selain itu, integrasi Firebase Authentication membuat aplikasi menjadi lebih aman karena hanya user yang memiliki akun yang dapat mengakses aplikasi.
