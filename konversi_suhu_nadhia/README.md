@@ -7,44 +7,34 @@ Aplikasi ini merupakan aplikasi Flutter sederhana yang digunakan untuk melakukan
 Pada pengembangan kali ini, aplikasi tidak hanya dibuat untuk melakukan konversi suhu, tetapi juga ditambahkan fitur **Login Authentication menggunakan Firebase** serta menerapkan **Provider State Management** agar struktur kode lebih rapi dan mudah dikembangkan.
 
 ---
+# 📸 Screenshot Aplikasi
 
-# 🚀 Fitur Aplikasi
+### Login Gagal
+<img src="https://github.com/user-attachments/assets/dde091f5-1c26-48ee-912f-f84baa1151fb" width="200"/>
+
+### Login Berhasil
+<img src="https://github.com/user-attachments/assets/5fab08f4-d077-4617-81b4-fdc0a008e465" width="200"/>
+<img src="https://github.com/user-attachments/assets/99fdc786-cdf2-4558-8c1e-47f98698e1c5"  width="200"/>
+
+### Halaman Konversi Suhu
+<img src="https://github.com/user-attachments/assets/e21a422c-853b-4c3f-99b2-cdba9075d467" width="200"/>
+
+---
+
+# Fitur Aplikasi
 
 Beberapa fitur yang terdapat pada aplikasi ini:
 
 * Login menggunakan Firebase Authentication
-* Logout dari aplikasi
-* Input suhu menggunakan `TextField`
-* Pemilihan satuan suhu menggunakan `DropdownButtonFormField`
 * Konversi suhu ke:
-
   * Celsius
   * Fahrenheit
   * Kelvin
   * Reamur
-* Tampilan hasil menggunakan `Card`
 * Menggunakan `Provider` sebagai state management
-* Menggunakan Material Design 3
-* Tampilan UI modern dan sederhana
-
 ---
 
-# 🧠 Teknologi yang Digunakan
-
-Project ini menggunakan beberapa package dan teknologi berikut:
-
-| Teknologi     | Fungsi                      |
-| ------------- | --------------------------- |
-| Flutter       | Framework utama aplikasi    |
-| Provider      | State management            |
-| Firebase Auth | Sistem login authentication |
-| Firebase Core | Koneksi Flutter ke Firebase |
-| Material 3    | Tampilan UI modern Flutter  |
-
----
-
-# 📂 Struktur Project
-
+# Struktur Project
 ```text
 lib/
 ├── main.dart
@@ -54,10 +44,9 @@ lib/
 ├── temperature_provider.dart
 └── firebase_options.dart
 ```
-
 ---
 
-# 📄 Penjelasan Tiap File
+# Penjelasan Tiap File
 
 ## 1. `main.dart`
 
@@ -175,7 +164,7 @@ Firebase.initializeApp()
 
 ---
 
-# 🔁 Alur Kerja Aplikasi
+# Alur Kerja Aplikasi
 
 ## Proses Login
 
@@ -204,7 +193,7 @@ Firebase.initializeApp()
 
 ---
 
-# 🧮 Logika Konversi Suhu
+# Logika Konversi Suhu
 
 Semua proses konversi menggunakan Celsius sebagai titik acuan utama.
 
@@ -224,7 +213,7 @@ Dengan metode ini, proses perhitungan menjadi lebih sederhana dan mudah dikelola
 
 ---
 
-# ⚖️ Alasan Menggunakan Provider
+# Alasan Menggunakan Provider
 
 Provider dipilih karena:
 
@@ -234,43 +223,6 @@ Provider dipilih karena:
 * Mengurangi penggunaan `setState`
 * Membuat kode lebih rapi
 * Mudah dikembangkan kembali
-
----
-
-# 🔄 Perbandingan State Management
-
-## setState vs Provider
-
-### setState
-
-* Mudah digunakan
-* Cocok untuk aplikasi kecil
-* Logic dan UI sering bercampur
-
-### Provider
-
-* Lebih terstruktur
-* Logic dipisah dari UI
-* Rebuild widget lebih terkontrol
-* Lebih scalable
-
----
-
-## Provider vs BLoC
-
-### Provider
-
-* Lebih sederhana
-* Mudah dipelajari
-* Cocok untuk project sederhana
-
-### BLoC
-
-* Lebih kompleks
-* Cocok untuk project besar
-* Struktur lebih ketat
-
-Pada project ini Provider dipilih karena kebutuhan aplikasi masih sederhana.
 
 ---
 
@@ -403,30 +355,6 @@ flutter run
 ```
 
 ---
-
-# 📸 Screenshot Aplikasi
-
-## Halaman Login
-
-### Login Gagal
-<img src="https://github.com/user-attachments/assets/9df43b9d-8af1-4984-bdfb-82a7b5aa0f8e" width="220"/>
-
-### Login Berhasil
-<img src="https://github.com/user-attachments/assets/1680d723-e7df-427e-972c-613308c8c08c" width="220"/>
-
-<img src="https://github.com/user-attachments/assets/baeecfc0-6404-4cd5-9805-c00b3bd04490" width="220"/>
-
----
-
-## Halaman Konversi Suhu
-
-<img src="https://github.com/user-attachments/assets/2f41a57c-1e92-4c09-8396-0e42b4c407b9" width="220"/>
-
----
-
-## Hasil Konversi
-
-<img src="https://github.com/user-attachments/assets/b736aa02-ac54-4841-8504-10dacedcbf5c" width="220"/>
 
 # 🧩 Kesimpulan
 
